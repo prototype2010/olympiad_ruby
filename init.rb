@@ -1,7 +1,6 @@
+require 'csv'
 require_relative './configs/structure_config'
 require_relative './configs/values_config'
-require 'csv'
-
 
 def parse_csv(filename)
   CSV.parse(File.read(filename), headers: :first_row)

@@ -10,6 +10,10 @@ STRUCTURE_CONFIG = SanitizeConfigResolver.new([
                                                   ->(csv_row) do
                                                     csv_row["full_name"] = csv_row["name"]
                                                     csv_row
+                                                  end,
+                                                  ->(csv_row) do
+                                                    csv_row["noc_name"] = csv_row["noc"]
+                                                    csv_row
                                                   end
                                               ])
 

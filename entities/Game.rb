@@ -9,4 +9,13 @@ class Game < Model
     @city = csv_row_hash["city"]
   end
 
+  def ==(other)
+    if other is_a? Game
+      @year == other.year &&
+          @season == other.season &&
+          @city == other.city
+    else
+      false
+    end
+  end
 end

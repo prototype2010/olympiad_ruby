@@ -1,6 +1,7 @@
 require_relative '../db/Model'
 
 class Athlete < Model
+  alias eql? ==
 
   attr_accessor :team_id
 
@@ -23,4 +24,13 @@ class Athlete < Model
     "#{@id} #{@full_name}#{@sex}#{@team_id}#{@year_of_birth}#{@params}"
   end
 
+  def ==(other)
+    if other is_a? Athlete
+      @year_of_birth == other.year_of_birth &&
+          @sex == other.sex &&
+          @full_name == other.full_name
+    else
+      false
+    end
+  end
 end

@@ -6,4 +6,12 @@ class Event < Model
     super()
     @event = csv_row_hash["event"]
   end
+
+  def ==(other)
+    if other is_a? Event
+      @event == other.event
+    else
+      false
+    end
+  end
 end

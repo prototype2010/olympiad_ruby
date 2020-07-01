@@ -46,7 +46,12 @@ class Athlete < Model
 
   def hash
     code = 17
-    code = 37*code +
+    code = 37*code + @year_of_birth.hash
+    code = 37*code + @sex.hash
+
+    h=37*code + @full_name.hash
+    puts h
+    h
   end
 
 end

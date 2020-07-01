@@ -24,7 +24,7 @@ def apply_values_sanitizer(csv_hash_array, values_config)
   end
 end
 
-def map_rows_to_entities(csv_rows_array, entities_config)
+def map_rows_to_entities(csv_rows_array, entities_config, hash_register)
   csv_rows_array
       .map do |csv_row|
     entities_config
@@ -38,13 +38,7 @@ restructured_file = apply_structure_config(parsed_file, STRUCTURE_CONFIG)
 sanitized_values = apply_values_sanitizer(restructured_file, VALUES_SANITIZER)
 initialized_entities = map_rows_to_entities(sanitized_values, ENTITIES_CONFIG)
 
-grouped_entities = initialized_entities
-                       .flatten
-                       .group_by(&:class)
-                       .each do |class_name, entities_array|
-  entities_array.each_with_index { |entity, index| entity.id = index + 1 }
-      .uniq
-end
+
 
 puts grouped_entities
 

@@ -43,6 +43,7 @@ grouped_entities = initialized_entities
                        .group_by(&:class)
                        .each do |class_name, entities_array|
   entities_array.each_with_index { |entity, index| entity.id = index + 1 }
+      .uniq
 end
 
 puts grouped_entities

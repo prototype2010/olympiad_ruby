@@ -24,13 +24,29 @@ class Athlete < Model
     "#{@id} #{@full_name}#{@sex}#{@team_id}#{@year_of_birth}#{@params}"
   end
 
+  def <=>(other)
+    if other is_a? Athlete
+      @year_of_birth == other.year_of_birth &&
+          @sex == other.sex &&
+          @full_name == other.full_name
+    else
+      nil
+    end
+  end
+
   def ==(other)
     if other is_a? Athlete
       @year_of_birth == other.year_of_birth &&
           @sex == other.sex &&
           @full_name == other.full_name
     else
-      false
+      nil
     end
   end
+
+  def hash
+    code = 17
+    code = 37*code +
+  end
+
 end

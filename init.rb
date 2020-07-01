@@ -38,7 +38,14 @@ restructured_file = apply_structure_config(parsed_file, STRUCTURE_CONFIG)
 sanitized_values = apply_values_sanitizer(restructured_file, VALUES_SANITIZER)
 initialized_entities = map_rows_to_entities(sanitized_values, ENTITIES_CONFIG)
 
-puts initialized_entities
+grouped_entities = initialized_entities
+                       .flatten
+                       .group_by(&:class)
+                       .each do |class_name, entities_array|
+  entities_array.each_with_index { |entity, index| entity.id = index + 1 }
+end
+
+puts grouped_entities
 
 
 

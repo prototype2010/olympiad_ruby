@@ -14,7 +14,7 @@ class Result < Model
   end
 
   def hash
-    super([@medal, @athlete_id, @sport_id, @event_id])
+    self.object_id
   end
 
 end

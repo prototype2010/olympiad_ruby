@@ -7,8 +7,7 @@ class Model
 
   def hash(values_array)
     values_array
-        .inject(17)
-        .reduce { |current, next_value| current+37*next_value.hash }
+        .reduce(17) { |current, next_value| current+37*next_value.hash }
   end
 
 end

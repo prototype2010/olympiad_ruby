@@ -2,7 +2,7 @@ require 'csv'
 require_relative './configs/structure_config'
 require_relative './configs/values_config'
 require_relative './configs/entities_config'
-require_relative './utils/hash_register'
+require_relative './utils/HashRegister'
 
 def parse_csv(filename)
   CSV.parse(File.read(filename), headers: :first_row)
@@ -25,25 +25,55 @@ def apply_values_sanitizer(csv_hash_array, values_config)
   end
 end
 
-def register_entities_hashes(csv_rows_array, entities_config, hash_register = HashRegister.new)
-  csv_rows_array
-      .map do |csv_row|
+def map_rows_to_entities(csv_rows_array, entities_config, hash_register = HashRegister.new)
+  entities_mapped_to_rows = csv_rows_array
+                                .map do |csv_row|
     entities_config
         .config
-        .each do |entity|
-      new_entity = entity.new(csv_row)
-      hash_register.register(new_entity);
-    end
+        .map { |entity| hash_register.register(entity.new(csv_row)) }
   end
+
+  [entities_mapped_to_rows, hash_register]
+end
+
+def set_ids_to_entities(hash_register)
+  hash_register
+           .set
+           .values
+  .each_with_index { |entity, index| entity.id = index + 1 }
+end
+
+def link_entities_ids(csv_rows_entities)
+  csv_rows_entities
+      .each do |athlete, event, game, sport, team, result|
+
+    athlete.team_id = team.id
+
+    result.athlete_id = athlete.id
+    result.game_id = game.id
+    result.sport_id = sport.id
+    result.event_id = event.id
+  end
+end
+
+def split_to_groups(csv_rows_entities)
+  csv_rows_entities
+      .group_by(&:class)
 end
 
 parsed_file = parse_csv('athlete_events_small.csv')
 restructured_file = apply_structure_config(parsed_file, STRUCTURE_CONFIG)
 sanitized_values = apply_values_sanitizer(restructured_file, VALUES_SANITIZER)
-initialized_entities = map_rows_to_entities(sanitized_values, ENTITIES_CONFIG)
+
+entities_mapped_to_rows, hash_register = map_rows_to_entities(sanitized_values, ENTITIES_CONFIG)
+
+set_ids_to_entities(hash_register)
+
+link_entities_ids(entities_mapped_to_rows)
 
 
-puts grouped_entities
+
+#puts hash_register
 
 
 

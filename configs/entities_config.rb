@@ -6,4 +6,4 @@ require_relative '../entities/Result'
 require_relative '../entities/Sport'
 require_relative '../entities/Team'
 
-ENTITIES_CONFIG = SanitizeConfigResolver.new([Athlete, Event, Game, Result, Sport, Team])
+ENTITIES_CONFIG = SanitizeConfigResolver.new([Athlete, Event, Game, Sport, Team, Result])

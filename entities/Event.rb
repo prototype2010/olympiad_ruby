@@ -14,4 +14,8 @@ class Event < Model
       false
     end
   end
+
+  def hash
+    super([@event])
+  end
 end

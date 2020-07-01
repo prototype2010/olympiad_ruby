@@ -7,4 +7,8 @@ class Sport < Model
     @name = csv_row_hash["sport"]
   end
 
+  def hash
+    super([@name])
+  end
+
 end

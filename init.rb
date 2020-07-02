@@ -3,6 +3,7 @@ require_relative './configs/structure_config'
 require_relative './configs/values_config'
 require_relative './configs/entities_config'
 require_relative './utils/HashRegister'
+require_relative './db/db_connection'
 
 def parse_csv(filename)
   CSV.parse(File.read(filename), headers: :first_row)
@@ -73,9 +74,16 @@ link_entities_ids(entities_mapped_to_rows)
 
 
 
-#puts hash_register
+#ActiveRecord::Base.connection.execute("INSERT INTO events values(8888888888888888,'asdkljasljkdljklkjasjklsd')")
+#
+ActiveRecord::Base.connection.tables.each do |table_name|
+  ActiveRecord::Base.connection.execute("TRUNCATE #{table_name}")
+end
 
-
-
-
-
+#
+#ActiveRecord::Base.connection.tables.each do |table_name|
+#  puts table_name
+#  ActiveRecord::Base.connection.columns(table_name).each do |c|
+#    puts "- #{c.name}: #{c.type} #{c.limit}"
+#  end
+#end

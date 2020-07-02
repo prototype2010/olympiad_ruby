@@ -1,12 +1,11 @@
 require_relative '../db/Model'
 
-class Athlete < Model
-  alias eql? ==
+class Athlete < ActiveRecord::Base
+  include Model
 
   attr_accessor :team_id
 
   def initialize(csv_row_hash)
-    super()
     @full_name = csv_row_hash["full_name"]
     @sex = csv_row_hash["sex"]
     @year_of_birth = csv_row_hash["year_of_birth"]
@@ -20,8 +19,8 @@ class Athlete < Model
     end
   end
 
-  def to_s
-    "#{@id} #{@full_name}#{@sex}#{@team_id}#{@year_of_birth}#{@params}"
+  def create
+    Athlete.create(id: @id, full_name: @full_name, year_of_birth: @year_of_birth, sex: @sex, params: @params.to_s, team_id: @team_id)
   end
 
   def hash

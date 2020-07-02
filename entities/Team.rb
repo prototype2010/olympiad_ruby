@@ -1,10 +1,15 @@
 require_relative '../db/Model'
 
-class Team < Model
+class Team < ActiveRecord::Base
+  include Model
+
   def initialize(csv_row_hash)
-    super()
     @name = csv_row_hash["team"]
     @noc_name = csv_row_hash["noc_name"]
+  end
+
+  def create
+    Sport.create(id: @id, name: @name, noc_name: @noc_name)
   end
 
   def hash

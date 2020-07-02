@@ -1,9 +1,9 @@
 require_relative '../db/Model'
 
-class Event < Model
+class Event < ActiveRecord::Base
+  include Model
 
   def initialize(csv_row_hash)
-    super()
     @event = csv_row_hash["event"]
   end
 
@@ -13,6 +13,10 @@ class Event < Model
     else
       false
     end
+  end
+
+  def create
+    Event.create(id: @id, name: @event)
   end
 
   def hash

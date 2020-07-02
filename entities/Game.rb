@@ -1,12 +1,16 @@
 require_relative '../db/Model'
 
-class Game < Model
+class Game < ActiveRecord::Base
+  include Model
 
   def initialize(csv_row_hash)
-    super()
     @year = csv_row_hash["year"]
     @season = csv_row_hash["season"]
     @city = csv_row_hash["city"]
+  end
+
+  def create
+    Game.create(id: @id, year: @year, season: @season, city: @city)
   end
 
   def hash

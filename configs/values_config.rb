@@ -22,10 +22,10 @@ sex_sanitizer = lambda { |value| value.downcase == 'M' ? 0 : 1 }
 
 VALUES_SANITIZER = SanitizeConfigResolver.new({
                                                   full_name: [round_brackets_sanitizer,
-                                                         double_quotes_sanitizer,
-                                                         escape_sanitizer],
+                                                              double_quotes_sanitizer,
+                                                              escape_sanitizer],
                                                   medal: [medal_sanitizer],
-                                                  team: [team_name_sanitizer,escape_sanitizer],
+                                                  team: [team_name_sanitizer, escape_sanitizer],
                                                   season: [season_sanitizer],
                                                   sex: [sex_sanitizer],
                                                   event: [escape_sanitizer],

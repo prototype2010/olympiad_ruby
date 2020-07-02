@@ -75,11 +75,11 @@ link_entities_ids(entities_mapped_to_rows)
 
 
 ActiveRecord::Base.connection.tables.each do |table_name|
-  puts table_name
-  ActiveRecord::Base.connection.columns(table_name).each do |c|
-    puts "- #{c.name}: #{c.type} #{c.limit}"
-  end
-
+  #puts table_name
+  #ActiveRecord::Base.connection.columns(table_name).each do |c|
+  #  puts "- #{c.name}: #{c.type} #{c.limit}"
+  #end
+  #
   ActiveRecord::Base.connection.truncate(table_name)
 end
 
@@ -91,21 +91,8 @@ entities_mapped_to_rows
   values_array
       .uniq { |entity| entity.hash }
       .each do |entity|
-    puts entity
     ActiveRecord::Base.connection.execute(entity.to_s)
   end
 end
 
-#         .each do |values_array|
-#
-#
-#
-#  values_array.each do |entity|
-#    puts entity
-#
-#  ActiveRecord::Base.connection.execute(entity.to_s)
-#  end
-#end
-
-
-puts ActiveRecord::Base.connection.execute('SELECT * FROM athletes').length
+puts ActiveRecord::Base.connection.execute('SELECT * FROM athletes')

@@ -1,6 +1,9 @@
 require_relative '../db/Model'
 
 class Game < Model
+  def table_name
+    'games'
+  end
 
   def initialize(csv_row_hash)
     @year = csv_row_hash["year"]
@@ -8,8 +11,12 @@ class Game < Model
     @city = csv_row_hash["city"]
   end
 
+  def values
+    "(#{@id},#{@year},#{@season},'#{@city}')"
+  end
+
   def to_s
-    "INSERT INTO games values (#{@id},#{@year},#{@season},'#{@city}')"
+    "INSERT INTO games values #{values};"
   end
 
   def hash

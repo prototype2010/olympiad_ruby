@@ -85,13 +85,13 @@ end
 
 entities_mapped_to_rows
     .flatten
-    .group_by(&:class)
-    .values
-    .each do |values_array|
-  values_array
+    .group_by(&:table_name)
+    .each do |table_name, entities_array|
+  entities_array
       .uniq { |entity| entity.hash }
-      .each do |entity|
-    ActiveRecord::Base.connection.execute(entity.to_s)
+      .each_slice(100) do |entities_slice_array|
+
+    ActiveRecord::Base.connection.execute("INSERT INTO #{table_name} VALUES #{entities_slice_array.map(&:values).join(',')}")
   end
 end
 

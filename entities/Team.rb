@@ -7,8 +7,16 @@ class Team < Model
     @noc_name = csv_row_hash["noc_name"]
   end
 
+  def table_name
+    'teams'
+  end
+
+  def values
+    "(#{@id},'#{@name}','#{@noc_name}')";
+  end
+
   def to_s
-    "INSERT INTO teams values (#{@id},'#{@name}','#{@noc_name}')"
+    "INSERT INTO teams values #{values};"
   end
 
   def hash

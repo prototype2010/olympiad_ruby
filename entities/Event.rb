@@ -6,6 +6,10 @@ class Event < Model
     @event = csv_row_hash["event"]
   end
 
+  def table_name
+    'events'
+  end
+
   def ==(other)
     if other is_a? Event
       @event == other.event
@@ -14,8 +18,12 @@ class Event < Model
     end
   end
 
+  def values
+    "(#{@id},#{@event})"
+  end
+
   def to_s
-    "INSERT INTO events values (#{@id},#{@event})"
+    "INSERT INTO events values #{values};"
   end
 
 

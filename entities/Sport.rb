@@ -6,12 +6,20 @@ class Sport < Model
     @name = csv_row_hash["sport"]
   end
 
+  def table_name
+    'sports'
+  end
+
   def hash
     super([@name])
   end
 
+  def values
+    "(#{@id},'#{@name}')"
+  end
+
   def to_s
-    "INSERT INTO sports values (#{@id},'#{@name}')"
+    "INSERT INTO sports values #{values};"
   end
 
 

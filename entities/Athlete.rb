@@ -4,6 +4,10 @@ class Athlete < Model
 
   attr_accessor :team_id
 
+  def table_name
+    'athletes'
+  end
+
   def initialize(csv_row_hash)
     @full_name = csv_row_hash["full_name"]
     @sex = csv_row_hash["sex"]
@@ -18,8 +22,12 @@ class Athlete < Model
     end
   end
 
+  def values
+    "(#{@id},'#{@full_name}',#{@year_of_birth},#{@sex},'#{@params}',#{@team_id})"
+  end
+
   def to_s
-    "INSERT INTO athletes values (#{@id},'#{@full_name}',#{@year_of_birth},#{@sex},'#{@params}',#{@team_id})"
+    "INSERT INTO athletes values #{values};"
   end
 
 

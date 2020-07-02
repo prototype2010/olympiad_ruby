@@ -23,7 +23,7 @@ class Event < Model
   end
 
   def to_s
-    "INSERT INTO events values #{values};"
+    "INSERT INTO #{table_name} values #{values};"
   end
 
 

@@ -20,7 +20,7 @@ class Result < Model
   end
 
   def to_s
-    "INSERT INTO results values #{values};"
+    "INSERT INTO #{table_name} values #{values};"
   end
 
   def hash

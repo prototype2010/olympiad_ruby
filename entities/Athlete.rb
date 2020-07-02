@@ -27,7 +27,7 @@ class Athlete < Model
   end
 
   def to_s
-    "INSERT INTO athletes values #{values};"
+    "INSERT INTO #{table_name} values #{values};"
   end
 
 

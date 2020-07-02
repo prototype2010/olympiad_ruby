@@ -19,7 +19,7 @@ class Sport < Model
   end
 
   def to_s
-    "INSERT INTO sports values #{values};"
+    "INSERT INTO #{table_name} values #{values};"
   end
 
 

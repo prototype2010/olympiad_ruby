@@ -16,7 +16,7 @@ class Team < Model
   end
 
   def to_s
-    "INSERT INTO teams values #{values};"
+    "INSERT INTO #{table_name} values #{values};"
   end
 
   def hash

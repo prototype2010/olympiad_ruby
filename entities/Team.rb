@@ -12,7 +12,7 @@ class Team < Model
   end
 
   def values
-    "(#{@id},'#{@name}','#{@noc_name}')";
+    "(#{@id},#{@name},#{@noc_name})";
   end
 
   def to_s

@@ -15,7 +15,7 @@ class Sport < Model
   end
 
   def values
-    "(#{@id},'#{@name}')"
+    "(#{@id},#{@name})"
   end
 
   def to_s

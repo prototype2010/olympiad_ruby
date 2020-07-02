@@ -21,15 +21,19 @@ season_sanitizer = lambda { |value| value.downcase == 'summer' ? 0 : 1 }
 sex_sanitizer = lambda { |value| value.downcase == 'M' ? 0 : 1 }
 
 VALUES_SANITIZER = SanitizeConfigResolver.new({
-                                                  name: [round_brackets_sanitizer,
-                                                         double_quotes_sanitizer],
+                                                  full_name: [round_brackets_sanitizer,
+                                                         double_quotes_sanitizer,
+                                                         escape_sanitizer],
                                                   medal: [medal_sanitizer],
-                                                  team: [team_name_sanitizer],
-                                                  season: [season_sanitizer] ,
+                                                  team: [team_name_sanitizer,escape_sanitizer],
+                                                  season: [season_sanitizer],
                                                   sex: [sex_sanitizer],
                                                   event: [escape_sanitizer],
-                                                  full_name: [escape_sanitizer],
-})
+                                                  city: [escape_sanitizer],
+                                                  country: [escape_sanitizer],
+                                                  sport: [escape_sanitizer],
+                                                  noc_name: [escape_sanitizer],
+                                              })
 
 
 

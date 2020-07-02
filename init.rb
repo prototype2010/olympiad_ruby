@@ -4,7 +4,7 @@ require_relative './configs/values_config'
 require_relative './configs/entities_config'
 require_relative './utils/HashRegister'
 require_relative './db/db_connection'
-require_relative './entities/Sport';
+require_relative './entities/Sport'
 
 def parse_csv(filename)
   CSV.parse(File.read(filename), headers: :first_row)
@@ -90,6 +90,8 @@ entities_mapped_to_rows
   entities_array
       .uniq { |entity| entity.hash }
       .each_slice(100) do |entities_slice_array|
+
+    puts "INSERT INTO #{table_name} VALUES #{entities_slice_array.map(&:values).join(',')}"
 
     ActiveRecord::Base.connection.execute("INSERT INTO #{table_name} VALUES #{entities_slice_array.map(&:values).join(',')}")
   end

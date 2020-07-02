@@ -23,7 +23,7 @@ class Athlete < Model
   end
 
   def values
-    "(#{@id},'#{@full_name}',#{@year_of_birth},#{@sex},'#{@params}',#{@team_id})"
+    "(#{@id},#{@full_name},#{@year_of_birth},#{@sex},'#{@params}',#{@team_id})"
   end
 
   def to_s

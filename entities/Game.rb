@@ -12,7 +12,7 @@ class Game < Model
   end
 
   def values
-    "(#{@id},#{@year},#{@season},'#{@city}')"
+    "(#{@id},#{@year},#{@season},#{@city})"
   end
 
   def to_s

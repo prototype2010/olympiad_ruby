@@ -63,7 +63,8 @@ def split_to_groups(csv_rows_entities)
       .group_by(&:class)
 end
 
-parsed_file = parse_csv('athlete_events_small.csv')
+#parsed_file = parse_csv('athlete_events_small.csv')
+parsed_file = parse_csv('athlete_events.csv')
 restructured_file = apply_structure_config(parsed_file, STRUCTURE_CONFIG)
 sanitized_values = apply_values_sanitizer(restructured_file, VALUES_SANITIZER)
 
@@ -90,11 +91,12 @@ entities_mapped_to_rows
   entities_array
       .uniq { |entity| entity.hash }
       .each_slice(100) do |entities_slice_array|
-
-    puts "INSERT INTO #{table_name} VALUES #{entities_slice_array.map(&:values).join(',')}"
-
-    ActiveRecord::Base.connection.execute("INSERT INTO #{table_name} VALUES #{entities_slice_array.map(&:values).join(',')}")
+    begin
+      ActiveRecord::Base.connection.execute("INSERT INTO #{table_name} VALUES #{entities_slice_array.map(&:values).join(',')}")
+    rescue
+      puts "INSERT INTO #{table_name} VALUES #{entities_slice_array.map(&:values).join(',')}"
+    end
   end
 end
 
-puts ActiveRecord::Base.connection.execute('SELECT * FROM athletes')
+#puts ActiveRecord::Base.connection.execute('SELECT * FROM athletes')

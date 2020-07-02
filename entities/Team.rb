@@ -20,7 +20,7 @@ class Team < Model
   end
 
   def hash
-    super([@name, @noc_name])
+    super([@noc_name])
   end
 
 end

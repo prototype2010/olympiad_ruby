@@ -3,7 +3,8 @@ require_relative './SanitizeConfigResolver'
 
 escape_sanitizer = lambda { |value| value.dump }
 round_brackets_sanitizer = lambda { |value| value.gsub(/(\(.*\))/, '') }
-double_quotes_sanitizer = lambda { |value| value.gsub(/"\(.*\)"/, '') }
+double_quotes_sanitizer = lambda { |value| value.gsub(/".*"/, '') }
+useless_double_quotes = lambda { |value| value.gsub(/"/, '\'') }
 team_name_sanitizer = lambda { |value| value.gsub(/-[0-9]*/, '') }
 medal_sanitizer = lambda do |value|
   case value
@@ -22,6 +23,7 @@ sex_sanitizer = lambda { |value| value.downcase == 'M' ? 0 : 1 }
 
 VALUES_SANITIZER = SanitizeConfigResolver.new({
                                                   full_name: [round_brackets_sanitizer,
+                                                              useless_double_quotes,
                                                               double_quotes_sanitizer,
                                                               escape_sanitizer],
                                                   medal: [medal_sanitizer],

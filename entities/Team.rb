@@ -1,6 +1,6 @@
 require_relative '../db/Model'
 
-class Team < ActiveRecord::Base
+class Team
   include Model
 
   def initialize(csv_row_hash)

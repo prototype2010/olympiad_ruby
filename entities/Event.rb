@@ -1,6 +1,6 @@
 require_relative '../db/Model'
 
-class Event < ActiveRecord::Base
+class Event
   include Model
 
   def initialize(csv_row_hash)

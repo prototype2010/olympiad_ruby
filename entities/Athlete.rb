@@ -1,6 +1,6 @@
 require_relative '../db/Model'
 
-class Athlete < ActiveRecord::Base
+class Athlete
   include Model
 
   attr_accessor :team_id

@@ -1,6 +1,6 @@
 require_relative '../db/Model'
 
-class Sport < ActiveRecord::Base
+class Sport
   include Model
 
   def initialize(csv_row_hash)

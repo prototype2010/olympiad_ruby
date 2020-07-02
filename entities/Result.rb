@@ -1,6 +1,6 @@
 require_relative '../db/Model'
 
-class Result < ActiveRecord::Base
+class Result
   include Model
   attr_accessor :athlete_id, :game_id, :sport_id, :event_id
 

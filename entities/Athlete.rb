@@ -1,7 +1,6 @@
 require_relative '../db/Model'
 
-class Athlete
-  include Model
+class Athlete < Model
 
   attr_accessor :team_id
 
@@ -19,9 +18,10 @@ class Athlete
     end
   end
 
-  def create
-    Athlete.create(id: @id, full_name: @full_name, year_of_birth: @year_of_birth, sex: @sex, params: @params.to_s, team_id: @team_id)
+  def to_s
+    "INSERT INTO sports athletes (#{@id},'#{@full_name}',#{@year_of_birth},#{@sex},'#{@params}',#{@team_id})"
   end
+
 
   def hash
     super([@year_of_birth,@sex, @full_name])

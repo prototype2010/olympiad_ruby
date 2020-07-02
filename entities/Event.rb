@@ -1,7 +1,6 @@
 require_relative '../db/Model'
 
-class Event
-  include Model
+class Event < Model
 
   def initialize(csv_row_hash)
     @event = csv_row_hash["event"]
@@ -15,9 +14,10 @@ class Event
     end
   end
 
-  def create
-    Event.create(id: @id, name: @event)
+  def to_s
+    "INSERT INTO events values (#{@id},'#{@event}')"
   end
+
 
   def hash
     super([@event])

@@ -15,13 +15,14 @@ medal_sanitizer = lambda do |value|
     'n/a'
   end
 end
-
+season_sanitizer = lambda { |value| value.downcase == 'summer' ? 0 : 1 }
 
 VALUES_SANITIZER = SanitizeConfigResolver.new({
                                                   name: [round_brackets_sanitizer,
                                                          double_quotes_sanitizer],
                                                   medal: [medal_sanitizer],
                                                   team: [team_name_sanitizer],
+                                                  season: [season_sanitizer]
                                               })
 
 

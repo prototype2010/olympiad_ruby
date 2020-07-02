@@ -1,6 +1,6 @@
 require 'active_record'
 
-module Model
+class Model
   attr_accessor :id
 
   def initialize(id = nil)

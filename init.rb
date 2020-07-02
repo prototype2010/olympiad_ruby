@@ -73,25 +73,23 @@ set_ids_to_entities(hash_register)
 
 link_entities_ids(entities_mapped_to_rows)
 
+
 ActiveRecord::Base.connection.tables.each do |table_name|
   puts table_name
-
-  table_name.each { |column| puts column }
-
+  ActiveRecord::Base.connection.columns(table_name).each do |c|
+    puts "- #{c.name}: #{c.type} #{c.limit}"
+  end
 
   ActiveRecord::Base.connection.truncate(table_name)
 end
+
 
 ActiveRecord::Base.connection.execute("INSERT INTO sports values (777777777777777, 'asdasdasdasd') ")
 
 
 Sport.create(id: 123123, name: "123123123")
 
-entities_mapped_to_rows
-         .flatten
-         .group_by(&:class)
-         .values[0]
-         .each { |a| a.create }
+
 
 
 puts ActiveRecord::Base.connection.execute('SELECT * FROM sports').length

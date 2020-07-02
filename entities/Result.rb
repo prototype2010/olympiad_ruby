@@ -1,7 +1,6 @@
 require_relative '../db/Model'
 
-class Result
-  include Model
+class Result < Model
   attr_accessor :athlete_id, :game_id, :sport_id, :event_id
 
   def initialize(csv_row_hash)
@@ -12,8 +11,8 @@ class Result
     @event_id = nil
   end
 
-  def create
-    Result.create(id: @id, athlete_id: @athlete_id, game_id: @game_id, sport_id: @sport_id, event_id: @event_id, medal: @medal)
+  def to_s
+    "INSERT INTO results values (#{@id},#{@athlete_id},#{@game_id},#{@sport_id},#{@event_id},#{@medal})"
   end
 
   def hash

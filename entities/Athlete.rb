@@ -19,7 +19,7 @@ class Athlete < Model
   end
 
   def to_s
-    "INSERT INTO sports athletes (#{@id},'#{@full_name}',#{@year_of_birth},#{@sex},'#{@params}',#{@team_id})"
+    "INSERT INTO athletes values (#{@id},'#{@full_name}',#{@year_of_birth},#{@sex},'#{@params}',#{@team_id})"
   end
 
 

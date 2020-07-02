@@ -9,7 +9,7 @@ class Game < Model
   end
 
   def to_s
-    "INSERT INTO sports values (#{@id},#{@year},#{@season},'#{@city}')"
+    "INSERT INTO games values (#{@id},#{@year},#{@season},'#{@city}')"
   end
 
   def hash

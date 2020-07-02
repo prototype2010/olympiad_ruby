@@ -40,9 +40,9 @@ end
 
 def set_ids_to_entities(hash_register)
   hash_register
-           .set
-           .values
-  .each_with_index { |entity, index| entity.id = index + 1 }
+      .set
+      .values
+      .each_with_index { |entity, index| entity.id = index + 1 }
 end
 
 def link_entities_ids(csv_rows_entities)
@@ -83,13 +83,29 @@ ActiveRecord::Base.connection.tables.each do |table_name|
   ActiveRecord::Base.connection.truncate(table_name)
 end
 
+entities_mapped_to_rows
+    .flatten
+    .group_by(&:class)
+    .values
+    .each do |values_array|
+  values_array
+      .uniq { |entity| entity.hash }
+      .each do |entity|
+    puts entity
+    ActiveRecord::Base.connection.execute(entity.to_s)
+  end
+end
 
-ActiveRecord::Base.connection.execute("INSERT INTO sports values (777777777777777, 'asdasdasdasd') ")
+#         .each do |values_array|
+#
+#
+#
+#  values_array.each do |entity|
+#    puts entity
+#
+#  ActiveRecord::Base.connection.execute(entity.to_s)
+#  end
+#end
 
 
-Sport.create(id: 123123, name: "123123123")
-
-
-
-
-puts ActiveRecord::Base.connection.execute('SELECT * FROM sports').length
+puts ActiveRecord::Base.connection.execute('SELECT * FROM athletes').length

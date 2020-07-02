@@ -1,18 +1,20 @@
 require_relative './SanitizeConfigResolver'
 
+
+escape_sanitizer = lambda { |value| value.dump }
 round_brackets_sanitizer = lambda { |value| value.gsub(/(\(.*\))/, '') }
 double_quotes_sanitizer = lambda { |value| value.gsub(/"\(.*\)"/, '') }
 team_name_sanitizer = lambda { |value| value.gsub(/-[0-9]*/, '') }
 medal_sanitizer = lambda do |value|
   case value
-  when '1'
-    'gold'
-  when '2'
-    'silver'
-  when '3'
-    'bronze'
+  when 'gold'
+    1
+  when 'silver'
+    2
+  when 'bronze'
+    3
   else
-    'n/a'
+    0
   end
 end
 season_sanitizer = lambda { |value| value.downcase == 'summer' ? 0 : 1 }
@@ -24,7 +26,9 @@ VALUES_SANITIZER = SanitizeConfigResolver.new({
                                                   medal: [medal_sanitizer],
                                                   team: [team_name_sanitizer],
                                                   season: [season_sanitizer] ,
-                                                  sex: [sex_sanitizer]
+                                                  sex: [sex_sanitizer],
+                                                  event: [escape_sanitizer],
+                                                  full_name: [escape_sanitizer],
 })
 
 
